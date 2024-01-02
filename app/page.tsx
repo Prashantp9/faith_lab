@@ -1,10 +1,33 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
+  const [currSlide, setCurrSlide] = useState(0);
+  const first: testimonial = {
+    text: "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system.",
+    reviewer_name: "Name of the reviewer",
+    reviewer_designation: "Designation of the reviewer",
+  };
+  const slide: testimonial[] = [first];
+
+  const nextNav: any = () => {
+    setCurrSlide((curr) => (curr == slide.length ? 0 : curr + 1));
+  };
+  const prevNav: any = () => {
+    setCurrSlide((curr) => (curr == 0 ? slide.length : curr - 1));
+  };
+
+  interface testimonial {
+    text: string;
+    reviewer_name: string;
+    reviewer_designation: string;
+  }
   return (
     <main className="flex min-h-screen flex-col items-center  p-5 pb-20">
       <div className="z-10 max-w-8xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <div className="h-72 px-16 py-10 w-full bg-[url(https://images.unsplash.com/photo-1544772546-4357b9384b60?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)]">
+        <div className="relative h-72 px-16 py-10 w-full object-contain bg-[url(https://cdn.wionews.com/sites/default/files/inline-images/Nityanand%20Charan%20Das.jpg)] ">
           <div className="flex items-end h-full">
             <p className="text-sm p-4 text-white w-full">
               Lorem Ipsum Lorem Ipsum
@@ -259,7 +282,7 @@ export default function Home() {
         </p>
         <div className="flex">
           <div className="w-[20%]">
-            <div className="w-[8rem] h-[8rem] object-center bg-[url(https://media.istockphoto.com/id/1406197730/photo/portrait-of-a-young-handsome-indian-man.webp?b=1&s=170667a&w=0&k=20&c=KtmKHyOE6MJV0w2DiGX8P4399KHNbZ3p8lCjTEabGcY=)] rounded-full"></div>
+            <div className="w-[8rem] h-[8rem] object-center bg-[url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScIikWmkoGF1nVNONTabs2HxYTHIh2o37r6Z7HMyXGAqek7Kxf92Z7HeWJer4FAvDraYI&usqp=CAU)] rounded-full"></div>
           </div>
           <div className="w-[40%]">
             <p className="text-base ml-1 text-gray-600 font-medium flex-wrap flex">
@@ -450,7 +473,62 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-full h-40"></div>
+        <div className="w-full h-[25rem] mt-20">
+          <div className="relative w-full h-full bg-slate-300 flex justify-center items-center">
+            <div className="flex gap-4 flex-col items-center">
+              <p className="text-lg text-black font-bold max-w-[30rem] text-center">
+                {" "}
+                {slide[currSlide]?.text}
+              </p>
+
+              <div className="flex gap-2 mt-2">
+                <div className="w-[3rem] h-[3rem] rounded-3xl bg-[url(https://images.unsplash.com/photo-1682685795557-976f03aca7b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8)]" />
+                <div>
+                  <p className="text-base text-gray-900 font-semibold">
+                    {" "}
+                    {slide[currSlide]?.reviewer_name}
+                  </p>
+                  <p className="text-sm text-gray-800 font-medium">
+                    {" "}
+                    {slide[currSlide]?.reviewer_designation}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* navigation */}
+            <div className="absolute w-full h-full flex items-center justify-between px-9">
+              <div className=" w-20 h-20 rounded-full border-black backdrop-opacity-10">
+                <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 320 512"
+                  onClick={() => prevNav()}
+                  height="2em"
+                  width="2em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path>
+                </svg>
+              </div>
+              <div className="w-20 h-20 rounded-full border-black backdrop-opacity-10">
+                <svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 320 512"
+                  onClick={() => nextNav()}
+                  height="2em"
+                  width="2em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
