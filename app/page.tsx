@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import data from "./data.json";
 import { useState } from "react";
 
 export default function Home() {
+  console.log(data);
   const [currSlide, setCurrSlide] = useState(0);
   const first: testimonial = {
     text: "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system.",
@@ -26,21 +28,25 @@ export default function Home() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center  p-5 pb-20">
+      <div className="lg:hidden fixed bottom-0 flex justify-center items-center w-full mt-8 bg-slate-300 z-20 py-2">
+        <button className="px-12 py-2 bg-purple-800 text-base font-semibold text-white rounded-2xl">
+          Register today
+        </button>
+      </div>
       <div className="z-10 max-w-8xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <div className="relative h-72 px-16 py-10 w-full object-contain bg-[url(https://cdn.wionews.com/sites/default/files/inline-images/Nityanand%20Charan%20Das.jpg)] ">
+        <div className="relative h-96 px-16 py-10 w-full object-contain bg-[url(https://cdn.wionews.com/sites/default/files/inline-images/Nityanand%20Charan%20Das.jpg)] ">
           <div className="flex items-end h-full">
             <p className="text-sm p-4 text-white w-full">
-              Lorem Ipsum Lorem Ipsum
+              {data?.instructor?.name}
               <span className="max-w-[40rem] flex text-lg font-bold text-white">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum
-                eum iste qui? Error rerum eaque laborum ut
+                {data?.course?.title}
               </span>
             </p>
           </div>
         </div>
       </div>
-      <div className="flex px-14 w-full h-fit">
-        <div className="w-[70%] pr-8">
+      <div className="flex flex-col lg:flex-row px-6 lg:px-14 w-full h-fit">
+        <div className="w-full lg:w-[70%] pr-8">
           <div className="flex">
             <a
               className="py-4 px-5 text-sm text-gray-700 font-bold border-b-2 border-purple-800"
@@ -56,32 +62,26 @@ export default function Home() {
             </a>
           </div>
           <div className="w-full mt-4">
-            <p className="text-xl text-black font-bold mb-5">
-              About the Course
-            </p>
-            <p className="text-base text-gray-600 font-medium mb-4">
-              {" "}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
-              quibusdam fuga adipisci et dolorum accusamus in placeat atque odio
-              totam? Beatae at dolorem voluptatum quisquam aut labore
-              perferendis. Ab unde autem voluptatum illo quas incidunt
-              cupiditate eveniet, mollitia numquam deserunt maxime nesciunt
-              placeat corrupti dicta sit suscipit, quia, eaque molestiae. Lorem
-              ipsum dolor sit amet consectetur adipisicing elit. Consequuntur
-              libero illo voluptates nihil,
-            </p>
-            <p className="text-base text-gray-600 font-medium mb-4">
-              quia deleniti velit pariatur suscipit voluptate, corrupti eligendi
-              fugit porro dolorem? Dicta sunt facilis debitis aperiam deleniti
-              ex vero, pariatur veniam alias quam quod dolorem, accusamus
-              praesentium sint sequi doloremque repellat suscipit necessitatibus
-              blanditiis deserunt perferendis provident odit. Odio esse nisi
-              distinctio voluptate consectetur minus unde pariatur.
-            </p>
-            <p className="text-xl text-black font-bold mb-5">
+            <p className="text-xl text-black font-bold ">About the Course</p>
+            {/* <p className="text-base text-gray-600 font-medium mb-4">
+            </p> */}
+            <div
+              className="mb-4"
+              dangerouslySetInnerHTML={{
+                __html: data.course.about.html_content,
+              }}
+            ></div>
+
+            <p className="text-xl text-black font-bold mb-2">
               What to expect from the course
             </p>
-            <div className="flex items-center mb-1">
+            <div
+              className="mb-4"
+              dangerouslySetInnerHTML={{
+                __html: data.course.what_to_expect.html_content,
+              }}
+            ></div>
+            {/* <div className="flex items-center mb-1">
               <svg
                 stroke="currentColor"
                 className="mr-4"
@@ -150,17 +150,22 @@ export default function Home() {
               <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path>
             </svg>
             <p className="text-base text-gray-600 font-medium"> Lorem.</p>
+          </div> */}
           </div>
-          <p className="text-xl text-black font-bold mb-4">
-            Key topics covered
-          </p>
-          <p className="text-base text-gray-600 font-medium mb-4">
+          <p className="text-xl text-black font-bold">Key topics covered</p>
+          <div
+            className="mb-4"
+            dangerouslySetInnerHTML={{
+              __html: data.course.key_topics.html_content,
+            }}
+          ></div>
+          {/* <p className="text-base text-gray-600 font-medium mb-4">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci,
             voluptas a explicabo voluptatem commodi soluta! Quos necessitatibus
             libero provident sed perspiciatis consectetur illo corrupti ipsum
             quia distinctio. Adipisci deserunt, velit voluptatem hic, ab ea quam
             atque laborum beatae sequi eaque?
-          </p>
+          </p> */}
           <div className="flex items-start mb-1">
             <svg
               stroke="currentColor"
@@ -206,10 +211,13 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="w-[30%]">
-          <div className="relative z-10 bottom-9 flex-col p-6 bg-purple-50 rounded-md w-fit shadow-lg">
+        <div className="w-full lg:w-[30%]">
+          <div className="inline-block lg:inline-block lg:relative z-10 bottom-9 flex-col p-6 bg-purple-50 rounded-md w-full shadow-lg">
             <p className="text-base text-black font-semibold"> Course fees</p>
-            <p className="text-2xl text-black font-bold mb-5">₹ 5,000</p>
+            <p className="text-2xl text-black font-bold mb-5">
+              {data.course.fee.currency == "INR" && "₹"}{" "}
+              {data.course.fee.amount}
+            </p>
             <p className="text-base text-black font-semibold">
               {" "}
               What's included :
@@ -229,7 +237,7 @@ export default function Home() {
               </svg>
               <p className="text-sm text-gray-600 font-medium">
                 {" "}
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Lorem ipsum dolor sit amet consectetur
               </p>
             </div>
             <div className="flex gap-2 items-center mb-1">
@@ -247,7 +255,7 @@ export default function Home() {
               </svg>
               <p className="text-sm text-gray-600 font-medium">
                 {" "}
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Lorem ipsum dolor sit amet consectetur
               </p>
             </div>
             <div className="flex gap-2 items-center mb-1">
@@ -265,10 +273,10 @@ export default function Home() {
               </svg>
               <p className="text-sm text-gray-600 font-medium">
                 {" "}
-                Lorem ipsum dolor sit amet consectetur
+                Lorem ipsum dolor
               </p>
             </div>
-            <div className="flex justify-center items-center w-full mt-8">
+            <div className="hidden lg:flex justify-center items-center w-full mt-8">
               <button className="px-12 py-2 bg-purple-800 text-base font-semibold text-white rounded-2xl">
                 Register today
               </button>
@@ -280,12 +288,12 @@ export default function Home() {
         <p className="text-xl text-black font-bold mb-5">
           About the Instructor
         </p>
-        <div className="flex">
-          <div className="w-[20%]">
+        <div className="flex flex-col lg:flex-row">
+          <div className="w-full flex justify-center items-center py-4 lg:py-0 lg:w-[20%]">
             <div className="w-[8rem] h-[8rem] object-center bg-[url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScIikWmkoGF1nVNONTabs2HxYTHIh2o37r6Z7HMyXGAqek7Kxf92Z7HeWJer4FAvDraYI&usqp=CAU)] rounded-full"></div>
           </div>
-          <div className="w-[40%]">
-            <p className="text-base ml-1 text-gray-600 font-medium flex-wrap flex">
+          <div className="w-full lg:w-[40%]">
+            <p className="text-center lg:text-left text-base ml-1 text-gray-600 font-medium flex-wrap flex">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. A
               numquam consectetur rerum! Odit temporibus velit ea voluptatum
               ullam quasi pariatur ad expedita obcaecati. Lorem ipsum dolor sit
@@ -294,7 +302,7 @@ export default function Home() {
               ipsam magnam.
             </p>
           </div>
-          <div className="w-[40%]">
+          <div className="text-center lg:text-left w-full lg:w-[40%]">
             <p className="text-base ml-1 text-gray-600 font-medium text-wrap">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. A
               numquam consectetur rerum! Odit temporibus velit ea voluptatum
@@ -476,7 +484,7 @@ export default function Home() {
         <div className="w-full h-[25rem] mt-20">
           <div className="relative w-full h-full bg-slate-300 flex justify-center items-center">
             <div className="flex gap-4 flex-col items-center">
-              <p className="text-lg text-black font-bold max-w-[30rem] text-center">
+              <p className="tex-xs lg:text-lg text-black font-bold max-w-[20rem] lg:max-w-[30rem] text-center">
                 {" "}
                 {slide[currSlide]?.text}
               </p>
