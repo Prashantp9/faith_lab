@@ -220,7 +220,7 @@ export default function Home() {
             </p>
             <p className="text-base text-black font-semibold">
               {" "}
-              What's included :
+              What&apos;s included :
             </p>
             <div className="flex gap-2 items-center mb-1">
               <svg
